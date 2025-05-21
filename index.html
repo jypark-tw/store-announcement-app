@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>取餐播報 App</title>
+  <style>
+    .container { display: flex; align-items: flex-start; gap: 20px; }
+    .controls { display: flex; flex-direction: column; gap: 10px; }
+    iframe { border: none; }
+  </style>
+</head>
+<body>
+  <h1>取餐播報 App</h1>
+  <div class="container">
+    <div class="controls">
+      <label for="voiceSelect">選擇台灣中文語音：</label>
+      <select id="voiceSelect"></select>
+      <input type="number" id="orderNumber" placeholder="輸入號碼" />
+      <button id="speakBtn">播報取餐通知</button>
+    </div>
+    <div>
+      <iframe
+        width="320" height="180"
+        src="https://www.youtube-nocookie.com/embed/AhPjfWjZZK4"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+  <script>
+    let voices = [];
+    function loadVoices() {
+      voices = speechSynthesis.getVoices();
+      const zhVoices = voices.filter(v => v.lang==='zh-TW').length
+        ? voices.filter(v=>v.lang==='zh-TW')
+        : voices.filter(v=>v.lang.startsWith('zh'));
+      const select = document.getElementById('voiceSelect');
+      select.innerHTML = '';
+      zhVoices.forEach((v,i)=> {
+        const o = document.createElement('option');
+        o.value = i; o.textContent = `${v.name} (${v.lang})`;
+        select.appendChild(o);
+      });
+    }
+    speechSynthesis.onvoiceschanged = loadVoices;
+    loadVoices();
+    document.getElementById('speakBtn').addEventListener('click',()=>{
+      const num = document.getElementById('orderNumber').value.trim();
+      if(!num){alert('請輸入號碼'); return;}
+      const ssml = `<speak><prosody rate="90%" pitch="+6%">` +
+                   `${num}號餐點好了，麻煩您過來取餐，謝謝您。</prosody></speak>`;
+      const u = new SpeechSynthesisUtterance(ssml);
+      u.lang='zh-TW';
+      const zhV = voices.filter(v=>v.lang==='zh-TW').length
+                ? voices.filter(v=>v.lang==='zh-TW')
+                : voices.filter(v=>v.lang.startsWith('zh'));
+      u.voice = zhV[document.getElementById('voiceSelect').value]||zhV[0];
+      u.rate=0.9; u.pitch=1.06;
+      speechSynthesis.speak(u);
+    });
+  </script>
+</body>
+</html>
