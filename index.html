@@ -1,64 +1,98 @@
-<!DOCTYPE html>
-<html lang="zh-Hant">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>取餐播報 App</title>
-  <style>
-    .container { display: flex; align-items: flex-start; gap: 20px; }
-    .controls { display: flex; flex-direction: column; gap: 10px; }
-    iframe { border: none; }
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.5">
+  <style type="text/css">
+    span.s1 {font-kerning: none}
   </style>
 </head>
 <body>
-  <h1>取餐播報 App</h1>
-  <div class="container">
-    <div class="controls">
-      <label for="voiceSelect">選擇台灣中文語音：</label>
-      <select id="voiceSelect"></select>
-      <input type="number" id="orderNumber" placeholder="輸入號碼" />
-      <button id="speakBtn">播報取餐通知</button>
-    </div>
-    <div>
-      <iframe
-        width="320" height="180"
-        src="https://www.youtube-nocookie.com/embed/AhPjfWjZZK4"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen>
-      </iframe>
-    </div>
-  </div>
-  <script>
-    let voices = [];
-    function loadVoices() {
-      voices = speechSynthesis.getVoices();
-      const zhVoices = voices.filter(v => v.lang==='zh-TW').length
-        ? voices.filter(v=>v.lang==='zh-TW')
-        : voices.filter(v=>v.lang.startsWith('zh'));
-      const select = document.getElementById('voiceSelect');
-      select.innerHTML = '';
-      zhVoices.forEach((v,i)=> {
-        const o = document.createElement('option');
-        o.value = i; o.textContent = `${v.name} (${v.lang})`;
-        select.appendChild(o);
-      });
-    }
-    speechSynthesis.onvoiceschanged = loadVoices;
-    loadVoices();
-    document.getElementById('speakBtn').addEventListener('click',()=>{
-      const num = document.getElementById('orderNumber').value.trim();
-      if(!num){alert('請輸入號碼'); return;}
-      const ssml = `<speak><prosody rate="90%" pitch="+6%">` +
-                   `${num}號餐點好了，麻煩您過來取餐，謝謝您。</prosody></speak>`;
-      const u = new SpeechSynthesisUtterance(ssml);
-      u.lang='zh-TW';
-      const zhV = voices.filter(v=>v.lang==='zh-TW').length
-                ? voices.filter(v=>v.lang==='zh-TW')
-                : voices.filter(v=>v.lang.startsWith('zh'));
-      u.voice = zhV[document.getElementById('voiceSelect').value]||zhV[0];
-      u.rate=0.9; u.pitch=1.06;
-      speechSynthesis.speak(u);
-    });
-  </script>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b>&lt;!DOCTYPE html&gt;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b>&lt;html lang="zh-Hant"&gt;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b>&lt;head&gt;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">  </span>&lt;meta charset="UTF-8"&gt;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">  </span>&lt;title&gt;取餐播報 App - 原始比例顯示&lt;/title&gt;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">  </span>&lt;style&gt;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">    </span>/* 布局 */</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">    </span>.container { display: flex; gap: 20px; align-items: flex-start; }</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">    </span>.controls { display: flex; flex-direction: column; gap: 10px; }</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">    </span>/* Shorts 原始 9:16 垂直比例容器 */</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">    </span>.shorts-wrapper {</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">      </span>width: 180px; /* 可根據需求調整寬度 */</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">      </span>aspect-ratio: 9 / 16; /* 高度自動計算，維持原始比例 */</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">      </span>max-width: 100%;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">      </span>position: relative;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">    </span>}</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">    </span>.shorts-wrapper iframe {</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">      </span>position: absolute;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">      </span>top: 0;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">      </span>left: 0;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">      </span>width: 100%;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">      </span>height: 100%;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">      </span>border: none;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">    </span>}</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">  </span>&lt;/style&gt;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b>&lt;/head&gt;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b>&lt;body&gt;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">  </span>&lt;h1&gt;取餐播報 App&lt;/h1&gt;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">  </span>&lt;div class="container"&gt;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">    </span>&lt;div class="controls"&gt;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">      </span>&lt;label for="voiceSelect"&gt;選擇台灣中文語音：&lt;/label&gt;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">      </span>&lt;select id="voiceSelect"&gt;&lt;/select&gt;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">      </span>&lt;input type="number" id="orderNumber" placeholder="輸入號碼" /&gt;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">      </span>&lt;button id="speakBtn"&gt;播報取餐通知&lt;/button&gt;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">    </span>&lt;/div&gt;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">    </span>&lt;div class="shorts-wrapper"&gt;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">      </span>&lt;iframe</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">        </span>src="https://www.youtube-nocookie.com/embed/AhPjfWjZZK4?autoplay=0&amp;controls=1"</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">        </span>allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">        </span>allowfullscreen&gt;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">      </span>&lt;/iframe&gt;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">    </span>&lt;/div&gt;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">  </span>&lt;/div&gt;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000; min-height: 33.0px"><span class="s1"><b></b></span><br></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">  </span>&lt;script&gt;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">    </span>let voices = [];</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">    </span>function loadVoices() {</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">      </span>voices = speechSynthesis.getVoices();</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">      </span>const zhVoices = voices.filter(v =&gt; v.lang === 'zh-TW').length</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">        </span>? voices.filter(v =&gt; v.lang === 'zh-TW')</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">        </span>: voices.filter(v =&gt; v.lang.startsWith('zh'));</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">      </span>const select = document.getElementById('voiceSelect');</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">      </span>select.innerHTML = '';</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">      </span>zhVoices.forEach((v, i) =&gt; {</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">        </span>const o = document.createElement('option');</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">        </span>o.value = i;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">        </span>o.textContent = `${v.name} (${v.lang})`;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">        </span>select.appendChild(o);</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">      </span>});</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">    </span>}</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">    </span>speechSynthesis.onvoiceschanged = loadVoices;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">    </span>loadVoices();</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000; min-height: 33.0px"><span class="s1"><b></b></span><br></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">    </span>document.getElementById('speakBtn').addEventListener('click', () =&gt; {</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">      </span>const num = document.getElementById('orderNumber').value.trim();</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">      </span>if (!num) { alert('請輸入號碼'); return; }</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">      </span>const ssml = `&lt;speak&gt;&lt;prosody rate="90%" pitch="+6%"&gt;${num}號餐點好了，麻煩您過來取餐，謝謝您。&lt;/prosody&gt;&lt;/speak&gt;`;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">      </span>const u = new SpeechSynthesisUtterance();</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">      </span>u.text = ssml;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">      </span>u.lang = 'zh-TW';</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">      </span>const zhV = voices.filter(v =&gt; v.lang === 'zh-TW').length</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">                </span>? voices.filter(v =&gt; v.lang === 'zh-TW')</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">                </span>: voices.filter(v =&gt; v.lang.startsWith('zh'));</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">      </span>const idx = document.getElementById('voiceSelect').value;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">      </span>u.voice = zhV[idx] || zhV[0];</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">      </span>u.rate = 0.9;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">      </span>u.pitch = 1.06;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">      </span>speechSynthesis.speak(u);</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">    </span>});</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b><span class="Apple-converted-space">  </span>&lt;/script&gt;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b>&lt;/body&gt;</b></span></h1>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px 'Songti TC'; -webkit-text-stroke: #000000"><span class="s1"><b>&lt;/html&gt;</b></span></h1>
 </body>
 </html>
